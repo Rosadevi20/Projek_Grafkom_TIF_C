@@ -81,6 +81,7 @@ void Demo::Render() {
 	DrawBuildingPutih();
 	DrawBuildingBelakang();
 	DrawBuildingDepan();
+	DrawTraffic();
 	DrawColoredPlane();
 
 	glDisable(GL_DEPTH_TEST);
@@ -1447,6 +1448,86 @@ void Demo::DrawStreet()
 
 		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
 	}
+
+	glBindVertexArray(0);
+}
+
+void Demo::DrawTraffic() {
+	UseShader(shaderProgram);
+
+	glBindVertexArray(VAO); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
+
+	GLint objectColorLoc = glGetUniformLocation(this->shaderProgram, "objectColor");
+	glUniform3f(objectColorLoc, 0.16f, 0.17f, 0.17f);
+
+	//bikin tiang
+	glm::mat4 model;
+	model = glm::translate(model, glm::vec3(1.3, 0, -5));
+	model = glm::scale(model, glm::vec3(0.1, 1.4, 0.2));
+
+	GLint modelLoc = glGetUniformLocation(this->shaderProgram, "model");
+	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+	//bikin kotak
+	for (int i = 0; i < 1; i++) {
+		objectColorLoc = glGetUniformLocation(this->shaderProgram, "objectColor");
+		glUniform3f(objectColorLoc, 0.16f, 0.16f, 0.17f);
+
+		glm::mat4 model2;
+		model2 = glm::translate(model2, glm::vec3(1.3, 0.6, -5));
+		model2 = glm::scale(model2, glm::vec3(0.3, 0.5, 0.4));
+
+		glGetUniformLocation(this->shaderProgram, "model");
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model2));
+
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+	}
+
+	//bikin bangjo
+	for (int i = 0; i < 1; i++) {
+		objectColorLoc = glGetUniformLocation(this->shaderProgram, "objectColor");
+		glUniform3f(objectColorLoc, 1.0f, 0.0f, 0.0f);
+
+		glm::mat4 model2;
+		model2 = glm::translate(model2, glm::vec3(1.33, 0.75, -4.8));
+		model2 = glm::scale(model2, glm::vec3(0.1, 0.1, 0.1));
+
+		glGetUniformLocation(this->shaderProgram, "model");
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model2));
+
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+	}
+	for (int i = 0; i < 1; i++) {
+		objectColorLoc = glGetUniformLocation(this->shaderProgram, "objectColor");
+		glUniform3f(objectColorLoc, 1.0f, 1.0f, 0.0f);
+
+		glm::mat4 model2;
+		model2 = glm::translate(model2, glm::vec3(1.31, 0.63, -4.8));
+		model2 = glm::scale(model2, glm::vec3(0.1, 0.1, 0.1));
+
+		glGetUniformLocation(this->shaderProgram, "model");
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model2));
+
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+	}
+	for (int i = 0; i < 1; i++) {
+		objectColorLoc = glGetUniformLocation(this->shaderProgram, "objectColor");
+		glUniform3f(objectColorLoc, 0.0f, 1.0f, 0.0f);
+
+		glm::mat4 model2;
+		model2 = glm::translate(model2, glm::vec3(1.3, 0.5, -4.8));
+		model2 = glm::scale(model2, glm::vec3(0.1, 0.1, 0.1));
+
+		glGetUniformLocation(this->shaderProgram, "model");
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model2));
+
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+	}
+
+
 
 	glBindVertexArray(0);
 }

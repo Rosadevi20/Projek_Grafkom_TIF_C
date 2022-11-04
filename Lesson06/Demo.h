@@ -30,6 +30,7 @@ private:
 	void DrawBuildingPutih();
 	void DrawStreet();
 	void DrawTree();
+	void DrawTraffic();
 	void DrawColoredPlane();
 };
 
